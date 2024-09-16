@@ -1,0 +1,569 @@
+classification problem :
+    whether the email is spam or not spam
+
+
+catagorial variables to continious varialbles using the technique : One hot encoding
+                                                                  : Target encoding
+                                                                  : ordianal encoding
+
+if the data is in the text : 
+    1. we can convert the text to meaningfull vectors.
+    2. Here we use NLP to solve this type of problem    
+    3. use case : Alexa, Google Home
+
+
+Roadmap of NLP:
+    1. Text Preprocessing : Tokenization, Stemming, Lemmatization, Stop Word, Part of speach Tagging (Cleaning the Input)
+    2. Text Preprocessing part two :One Hot Encoding, Bag of words, TFIDF, Unigram, bigram (Input text to Vectors)
+    3. Text Preprocessing part Three : Word2Vec , AvgWord2Vec (Input text to vectors)
+    4. Neural Newtwork (Part of Deep Learning Technique) : RNN, LSTM RNN, GRU RNN 
+    5. Text Preprocessing part four:  Word Embeding 
+    6. Tranformer
+    7. BERT
+
+Libraries :
+    1. NLTK
+    2. SpaCy
+    3. TensorFlow
+    4. PyTorch
+
+
+Tokenization in NLP:
+    1. Corpus : Parargraph
+    2. Documentaion : sentences
+    3. Vocabulary : Unique Words 
+    4. Words : words
+
+example:
+Learn the basics and advanced concepts of natural language processing (NLP) with our 
+complete NLP tutorial and get ready to explore the vast and exciting field of NLP, where
+technology meets human language.NLP tutorial is designed for both beginners and professionals.
+Whether you’re a data scientist, a developer, or someone curious about the power of language,
+our tutorial will provide you with the knowledge and skills you need to take your understanding 
+of NLP to the next level.
+
+Tokenization in natural language processing (NLP) is a technique that involves dividing a sentence
+or phrase into smaller units known as tokens.
+
+Tokenization is a critical step in many NLP tasks, including text processing, language modelling,
+and machine translation. 
+
+The above corpus is known as Parargraph. After the Tokenization , Token get made. Token is known as sentances
+or Documents.
+first Token (sentance)  - Learn the basics and advanced concepts of natural language processing (NLP) with our 
+                complete NLP tutorial and get ready to explore the vast and exciting field of NLP, where
+                technology meets human language.
+second  Token (sentance) - NLP tutorial is designed for both beginners and professionals.
+                Whether you’re a data scientist, a developer, or someone curious about the power of language,
+                our tutorial will provide you with the knowledge and skills you need to take your understanding 
+                of NLP to the next level.
+
+Again Tokenization process get applied to above sentance. Each Unique word in the the sentance will get Token=> Vocabulary.
+
+The process involves splitting a string, or text into a list of tokens. One can think of tokens as parts like a word is
+a token in a sentence, and a sentence is a token in a paragraph.
+
+NOTE:
+Words can be a token and sentances can be a token.
+
+#Word Tokenization:
+Word tokenization divides the text into individual words. Many NLP tasks use this approach, in which words are 
+treated as the basic units of meaning.
+
+Example:
+
+Input: "Tokenization is an important NLP task."
+Output: ["Tokenization", "is", "an", "important", "NLP", "task", "."]
+
+#Sentence Tokenization:
+The text is segmented into sentences during sentence tokenization. This is useful for tasks requiring 
+individual sentence analysis or processing.
+
+Example:
+
+Input: "Tokenization is an important NLP task. It helps break down text into smaller units."
+Output: ["Tokenization is an important NLP task.", "It helps break down text into smaller units."]
+
+STEMMING:
+    Stemming is the process of reducing a word to its word stem that affixes to suffixes and prefixes or to the roots
+    of words known as a stem. Stemming is important in natural language understanding (NLU) and natural language
+    processing (NLP).
+    Stemming in natural language processing reduces words to their base or root form, aiding in text normalization
+    for easier processing. This technique is crucial in tasks like text classification, information retrieval, and
+    text summarization. While beneficial, stemming has drawbacks, including potential impacts on text readability 
+    and occasional inaccuracies in determining the correct root form of a word.
+
+    example : [Eating, Eats, Eaten]=> Eat, [going , gone, goes]=> go
+        Some more example of stemming for root word "like" include:
+        ->"likes"
+        ->"liked"
+        ->"likely"
+        ->"liking"
+
+    It is important to note that stemming is different from Lemmatization. Lemmatization is the process of reducing 
+    a word to its base form, but unlike stemming, it takes into account the context of the word, and it produces a 
+    valid word, unlike stemming which may produce a non-word as the root form.
+
+RegexpStemmer class :
+    The Regexp Stemmer, or Regular Expression Stemmer, is a stemming algorithm that utilizes regular expressions to 
+    identify and remove suffixes from words. It allows users to define custom rules for stemming by specifying patterns 
+    to match and remove.
+
+    NLTK has RegexpStemmer class with the help of which we can easily implement Regular Expression Stemmer algorithms.
+    It basically takes a single regukar expression and remove any prefix and suffix that matches the expression.
+
+    A stemmer that uses regular expression to identify morphological affixes. Any substrings that match the regualar
+    expressions will be removed.
+
+# PorterStremmer
+ It is one of the most popular stemming methods proposed in 1980. It is based on the idea that the suffixes in the 
+ English language are made up of a combination of smaller and simpler suffixes. This stemmer is known for its 
+ speed and simplicity. The main applications of Porter Stemmer include data mining and Information retrieval. 
+ However, its applications are only limited to English words. Also, the group of stems is mapped on to the same 
+ stem and the output stem is not necessarily a meaningful word. The algorithms are fairly lengthy in nature and are 
+ known to be the oldest stemmer
+ Example: EED -> EE means “if the word has at least one vowel and consonant plus EED ending, change the ending to EE” 
+ as ‘agreed’ becomes ‘agree’
+
+# Snowball Stemmer
+The Snowball Stemmer, compared to the Porter Stemmer, is multi-lingual as it can handle non-English words. 
+It supports various languages and is based on the ‘Snowball’ programming language, known for efficient processing 
+of small strings.The Snowball stemmer is having greater computational speed.
+
+It perform better . it also changes the word meaning after stem for same word.
+
+# There are mainly two errors in stemming – 
+
+    1. Over-stemming: Over-stemming in natural language processing occurs when a stemmer produces incorrect root forms or 
+        non-valid words. This can result in a loss of meaning and readability. For instance, “arguing” may be stemmed to 
+        “argu,” losing meaning. To address this, choosing an appropriate stemmer, testing on sample text, or using 
+        lemmatization can mitigate over-stemming issues. Techniques like semantic role labeling and sentiment analysis 
+        can enhance context awareness in stemming.
+    2. Under-stemming: Under-stemming in natural language processing arises when a stemmer fails to produce accurate root 
+        forms or reduce words to their base form. This can result in a loss of information and hinder text analysis. 
+        For instance, stemming “arguing” and “argument” to “argu” may lose meaning. To mitigate under-stemming, selecting 
+        an appropriate stemmer, testing on sample text, or opting for lemmatization can be beneficial. Techniques like 
+        semantic role labeling and sentiment analysis enhance context awareness in stemming.
+
+#Advantages of Stemming
+    Stemming in natural language processing offers advantages such as text normalization, simplifying word variations 
+    to a common base form. It aids in information retrieval, text mining, and reduces feature dimensionality in machine
+    learning. Stemming enhances computational efficiency, making it a valuable step in text pre-processing for various 
+    NLP applications.
+
+#Lemmatization
+    it works better than for text Preprocessing Stemming. It does not changes the meaning of the word after lemmatization.
+    Lemmatization is the process of grouping together the different inflected forms of a word so they can be analyzed as
+    a single item. Lemmatization is similar to stemming but it brings context to the words. So, it links words with 
+    similar meanings to one word. 
+#How is lemmatization different from stemming?
+    While both lemmatization and stemming involve reducing words to their base forms, lemmatization considers the 
+    context and morphological analysis to return a valid word, whereas stemming applies simpler rules to chop off
+     prefixes or suffixes, often resulting in non-dictionary words.
+
+#Advantages of Lemmatization with NLTK
+    1.Improves text analysis accuracy: Lemmatization helps in improving the accuracy of text analysis by reducing words
+     to their base or dictionary form. This makes it easier to identify and analyze words that have similar meanings.
+    2. Reduces data size: Since lemmatization reduces words to their base form, it helps in reducing the data size of
+     the text, which makes it easier to handle large datasets.
+    3.Better search results: Lemmatization helps in retrieving better search results since it reduces different forms 
+    of a word to a common base form, making it easier to match different forms of a word in the text.
+
+#Disadvantages of Lemmatization with NLTK
+    1. Time-consuming: Lemmatization can be time-consuming since it involves parsing the text and performing a 
+    lookup in a dictionary or a database of word forms.
+    2.Not suitable for real-time applications: Since lemmatization is time-consuming, it may not be suitable for 
+    real-time applications that require quick response times.
+    3.May lead to ambiguity: Lemmatization may lead to ambiguity, as a single word may have multiple meanings
+     depending on the context in which it is used. In such cases, the lemmatizer may not be able to determine the 
+     correct meaning of the word.
+
+Lemmatization Technique:
+    1. Wordnet Lemmatizer
+
+# Wordnet Lemmatizer
+Lemmatization technique is like Stemming. The Output we will get after Lemmatization is called 'lemma;. Which is 
+a root word rather than root steam, the output of stemming. After Lemmatization, we will be getting a valid word
+rather that means the same thing.
+
+NLTK provides WordNetLemmatizer class which is a thin wrapper around the wordnet corpus. this class uses morphy() 
+function to the WordNet CorpusReader class to find a lemma.
+
+Use Case - Q&A ,chatbots, text summarization
+
+
+# Stop Word
+stopwords are frequently words( such as “the”, “a”, “an”, or “in”) filtered out to enhance text analysis
+and computational efficiency.Eliminating stopwords can improve the accuracy and relevance of NLP tasks by
+drawing attention to the more important words, or content words. The article aims to explore stopwords.
+
+Conversely, for tasks like machine translation and text summarization, the removal of stopwords is not recommended.
+In these scenarios, every word plays a pivotal role in preserving the original meaning of the content.
+
+
+#Part of Speech Tags
+One of the core tasks in Natural Language Processing (NLP) is Parts of Speech (PoS) tagging, which is giving 
+each word in a text a grammatical category, such as nouns, verbs, adjectives, and adverbs. Through improved 
+comprehension of phrase structure and semantics, this technique makes it possible for machines to study and
+comprehend human language more accurately.
+
+In many NLP applications, including machine translation, sentiment analysis, and information retrieval, 
+PoS tagging is essential. PoS tagging serves as a link between language and machine understanding, enabling 
+the creation of complex language processing systems and serving as the foundation for advanced linguistic analysis.
+
+Example:-> "Taj Mahal is a beautiful Monument"
+
+CC : Coordinating Conjuction
+CD : Cardinal digit
+DT : Determiner
+EX : Existencial There (like :"There is "...think of it like "there exists")
+FW : Foreign Word
+IN : Preposition / subordinating Conjuction
+JJ : Adjective -'Big'
+JJR : Adjective, Comparative - 'bigger'
+JJS : Adjective, Superlative - 'biggest'
+LS : list marker
+MD
+NN : noun 
+NNS
+NNP
+NNPS
+PDT
+POS
+PRP
+PRP$
+RB
+RBR
+RBS
+RP
+TO
+UH
+VB
+VBD
+VBG
+VBN
+VBP
+VBZ : verb 
+WDT
+WP
+WP$
+WRB
+
+
+# Workflow of POS Tagging in NLP
+The following are the processes in a typical natural language processing (NLP) example of part-of-speech (POS) tagging:
+
+1. Tokenization: Divide the input text into discrete tokens, which are usually units of words or subwords. 
+The first stage in NLP tasks is tokenization.
+2. Loading Language Models: To utilize a library such as NLTK or SpaCy, be sure to load the relevant language model. 
+These models offer a foundation for comprehending a language’s grammatical structure since they have been trained on
+ a vast amount of linguistic data.
+3. Text Processing: If required, preprocess the text to handle special characters, convert it to lowercase, or 
+eliminate superfluous information. Correct PoS labeling is aided by clear text.
+4. Linguistic Analysis: To determine the text’s grammatical structure, use linguistic analysis. 
+This entails understanding each word’s purpose inside the sentence, including whether it is an adjective,
+ verb, noun, or other.
+5.Part-of-Speech Tagging: To determine the text’s grammatical structure, use linguistic analysis.
+ This entails understanding each word’s purpose inside the sentence, including whether it is an adjective,
+  verb, noun, or other.
+6.Results Analysis: Verify the accuracy and consistency of the PoS tagging findings with the source text.
+ Determine and correct any possible problems or mistagging.
+
+
+
+#Named Entity Recognition
+Named Entity Recognition (NER) is a technique in natural language processing (NLP) that focuses on identifying and 
+classifying entities. The purpose of NER is to automatically extract structured information from unstructured text, 
+enabling machines to understand and categorize entities in a meaningful manner for various applications like text 
+summarization, building knowledge graphs, question answering, and knowledge graph construction. The article explores
+the fundamentals, methods and implementation of the NER model.
+
+sentance = "The Eiffel Tower wa built from 1887 to 1889 by French engineer Gustave Eiffel, whose company specialization
+in building metal frameworks and structure"
+
+Person
+Place Or Loaction
+datasetsTIme
+Money
+Organization
+Percentent
+
+
+#Summary
+If we want to perform sentiment analysis.
+
+Text                        output
+The food is good               1
+The Foood is bad               0
+Pizza is amazing               1
+Burger is bad                  0
+
+#Text Preprocessing Part One
+1. Tokenization
+2. Lowercase the words
+3. Regular Expression
+
+#Text Preprocessing Part Two
+1. Stemming
+2. Lemmatization
+3. Stop words
+4. Part of Speech
+5. Name Entity Recognition
+
+# Text to vectors
+1. One Hot encoding
+2. Bag of Words
+3. TF-IDF
+4. Word2Vec
+5. AvgWord2Vec
+
+
+#One Hot encoding
+Text                        output
+The food is good               1
+The Food is bad                0
+Pizza is amazing               1
+Burger is bad                  0
+
+Vocabulary{Unique Words}
+The Food is good bad Pizza amazing Burger 
+ 1   0    0   0    0   0      0      0  
+ 0   1    0   0    0   0      0      0  
+ 0   0    1   0    0   0      0      0     
+ 0   0    0   1    0   0      0      0     
+first sentence is representated as :
+[
+    [1   0    0   0    0   0      0      0],
+    [0   1    0   0    0   0      0      0],
+    [0   0    1   0    0   0      0      0],
+    [0   0    0   1    0   0      0      0]
+]
+
+Second sentence is representated as :
+[
+    [1   0    0   0    0   0      0      0],
+    [0   1    0   0    0   0      0      0],
+    [0   0    1   0    0   0      0      0],
+    [0   0    0   0    1   0      0      0]
+]
+
+Advantage of One-Hot encoding
+1. Easy to implement
+
+disadvantages of One-Hot encoding
+1. One of the major disadvantages of one-hot encoding in NLP is that it produces high-dimensional sparse vectors 
+that can be extremely costly to process. This is due to the fact that one-hot encoding generates a distinct 
+binary vector for each unique word in the text, resulting in a very big feature space.
+2. Not Fixed size Input - so not ML algorithm does not get applied  
+3. one-hot encoding does not catch the semantic connections between words, machine-learning models that use these 
+vectors as input may perform poorly.
+4. Out of Vocabulary : If new word comes in test dataset than not able to representate in form of vector.
+
+
+#Bag of Words
+
+Advantage of Bag of Words encoding
+1. Easy to implement
+2. Fixed size Input - so  ML algorithm does get applied
+
+Disadvantagesdvantage of Bag of Words encoding
+1. sparse vectors or array - Overfitting
+2. Ordering of the word is getting changed
+3. Out of Vocabulary
+4. Sementic meaning is still not captured.
+
+
+# N-Gram Language Modelling
+Language modeling is the way of determining the probability of any sequence of words. 
+Language modeling is used in various applications such as Speech Recognition, Spam filtering,
+etc. Language modeling is the key aim behind implementing many state-of-the-art Natural Language Processing models.
+Methods of Language Modelling
+
+Two methods of Language Modeling:
+
+1. Statistical Language Modelling: Statistical Language Modeling, or Language Modeling, is the development 
+of probabilistic models that can predict the next word in the sequence given the words that precede. 
+Examples such as N-gram language modeling.
+
+2. Neural Language Modeling: Neural network methods are achieving better results than classical methods 
+both on standalone language models and when models are incorporated into larger models on challenging 
+tasks like speech recognition and machine translation. A way of performing a neural language model is 
+through word embeddings.
+
+# N-gram  
+N-gram can be defined as the contiguous sequence of n items from a given sample of text or speech. 
+The items can be letters, words, or base pairs according to the application. The N-grams typically 
+are collected from a text or speech corpus (A long text dataset).
+
+For instance, N-grams can be unigrams like (“This”, “article”, “is”, “on”, “NLP”) or 
+bigrams (“This article”, “article is”, “is on”, “on NLP”).
+
+(1,1) => unigrams
+(1,2) => unigrams, bigram
+(1,3) => unigrams, bigram, trigram
+(2,3) => bigram, trigram
+
+
+# Understanding TF-IDF (Term Frequency-Inverse Document Frequency)
+tf(t,d) = count of t in d / number of words in d
+
+IDF(t) = log base e(number of sentences  / number of sentence containing the word) 
+
+tf-idf(t, d) = tf(t, d) * idf(t)
+
+s1 -> Good Boy
+s2 -> Good Girl
+s3 -> Boy Girl Good
+
+Term Frequency
+        s1      s2      s3
+Good   1/2      1/2    1/3
+Boy    1/2       0     1/3
+Girl    0       1/2    1/3
+
+IDF
+                IDF
+Good        log(3/3) = 0
+Boy         log(3/2)
+Girl        log(3/2)
+
+
+        Good            boy               girl
+s1        0       1/2*log(3/2)              0
+s2        0              0              1/2*log(3/2)  
+s3        0        1/3*log(3/2)         1/3*log(3/2)
+
+#Advantage
+1. Intutive 
+2. Fixed Size - vocab size
+3. Word Importance is going to captured. The Word having high frequency has given less importance
+    and The Word having less frequency has given more importance
+
+#Disadvantages
+1. Sparsity still exists
+2. Out of Vocabulary still Existencial
+
+
+#Word embedding
+its a supervised model.
+In natural language processing (NLP), a word embedding is a representation of a word. The embedding is used in text analysis. 
+Typically, the representation is a real-valued vector that encodes the meaning of the word in such a way that the words that 
+are closer in the vector space are expected to be similar in meaning.[1] Word embeddings can be obtained using language modeling 
+and feature learning techniques, where words or phrases from the vocabulary are mapped to vectors of real numbers.
+
+deep learning word embedding trained model
+1. Word2Vec
+
+Word2Vec is two type
+1. CBoW (Continious BAG of Words)
+2. Skipgram
+
+#Word2Vec
+
+Word2Vec is a widely used method in natural language processing (NLP) that allows words to be represented as vectors in a continuous vector space. 
+Word2Vec is an effort to map words to high-dimensional vectors to capture the semantic relationships between words, developed by researchers at Google. 
+Words with similar meanings should have similar vector representations, according to the main principle of Word2Vec. 
+
+cosine similarity
+distance = 1-cos(theta)
+
+## ANN, loss function, Optimizer
+
+## CBoW
+
+Corpus - dataset
+
+    [Ineuro company is related to data science]
+    window size = 5
+    take center word = "is"
+
+
+            IP                                            Output          
+    Ineuro, company, related ,To                           is
+    company, is, To, Data                                Rekated
+    is, related, Data, science                             To
+
+
+
+
+
+
+when should we apply CBoW or Skipgram
+
+if we have small Dataset ----- CBoW
+if we have Huge Dataset ------ Skipgram
+
+
+Improve CBoW or Skipgram
+1. Increase the Trainig Data
+2. Increase the window size which in leads to increase of vector dimension
+
+Google Word2Vec:
+3 billion Owrds
+feature representation of 300 dimension
+
+
+library - 
+
+
+
+
+NLP in Deep learning
+
+# ANN( Artificial Neural Network ) 
+used for classification and regression problems => which means we have tabluar data
+
+Eg - House Price Prediction
+
+
+# CNN( Convolutional Neural Network ) 
+used for Images and videos => which means we have image and video dataset
+
+Eg - Image classification, Object Detection
+
+
+
+
+Can we use ANN to solve this problems WRT sequential data?
+
+Dataset {sentiment analysis}
+we are lossing our sequence information
+we dont want to give all the words all once.
+
+that is why we should not use ANN.
+
+
+
+
+Roadmap of NLP in Depp Learning :
+1. Simple RNN
+2. LSTM/ GRU RNN
+3. Bidirectional RNN
+4. Encoders and Decoders
+5. Self attention
+6. transformer
+
+
+#RNN(Recurrent Neural network)
+To solve the above problem we use RNN.
+used for Images and videos => which means we sequencial dataset
+example : Text generation, Chatbot Conversation, Languague translation(English to French), Auto suggestion
+input : "This is a apple", "The food is good"
+
+with ANN  ,here we have feedback loop to make it RNN.
+
+each hidden layer node will send the feedback loop with the other hidden layer node.
+
+in RNN we pass one word at a time.
+Timstamp is used here.
+
+#Working with the simple RNN with Forward Propagation
+
+
+1
+
+0
+
+0
+
+
